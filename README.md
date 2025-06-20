@@ -1,7 +1,5 @@
 # ArtemisCase
 
----
-
 ## Desafio 1 - reconcile_accounts
 
 # Reconciliação de transações com verificação de datas e transações duplicadas
@@ -23,4 +21,4 @@ Este script foi feito para rodar em **Python 3.7+**, utilizando **apenas bibliot
 
 - Os arquivos `transaction1.csv` e `transaction2.csv` devem estar localizados na pasta `desafio1/`.
 - Cada CSV deve conter um cabeçalho na primeira linha e os dados a partir da segunda.
-- A estrutura das linhas deve ser: `data (yyyy-mm-dd),departamento,valor,beneficiário`
+- A estrutura das linhas deve ser: `data(yyyy-mm-dd),departamento,valor,beneficiário`
