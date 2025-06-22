@@ -84,7 +84,7 @@ O notebook (`desafio3.ipynb`) contém a solução para o **Desafio 3** de SQL, a
      ```sql
      SELECT c.Nome, p.PedidoID, p.DataPedido, p.ValorTotal
        FROM Clientes AS c
-  LEFT JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID;
+      LEFT JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID;
      ```
    - O resultado é carregado em um DataFrame `df_consulta1` com colunas:
      - `Nome Cliente`  
@@ -100,8 +100,8 @@ O notebook (`desafio3.ipynb`) contém a solução para o **Desafio 3** de SQL, a
             COUNT(p.PedidoID)    AS QuantidadePedidos,
             SUM(p.ValorTotal)    AS ValorTotal
        FROM Clientes AS c
-  INNER JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID
-   GROUP BY c.ClienteID;
+      INNER JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID
+         GROUP BY c.ClienteID;
      ```
    - Carrega o resultado em `df_consulta2` com colunas:
      - `Nome Cliente`  
