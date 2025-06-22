@@ -55,3 +55,72 @@ Este script foi feito para rodar em **Python 3.7+**, utilizando **apenas bibliot
 6. **Conclusão**  
    - A regressão logística reduzida (usando apenas `mean_concave_points`, `mean_perimeter`, `worst_texture` e `worst_area`) obteve o melhor trade-off entre simplicidade, acurácia (~96,7 %) e estabilidade (AIC/BIC menores).  
 ---
+
+## Desafio 3 - Consultas SQL
+
+O notebook (`desafio3.ipynb`) contém a solução para o **Desafio 3** de SQL, aplicando consultas a um banco de dados SQLite chamado `Loja.sqlite` e exibindo os resultados em `pandas`.
+
+---
+
+## Pré-requisitos
+
+- Python 3.x  
+- Bibliotecas:
+  - `sqlite3` (já incluída no Python)
+  - `pandas`  
+- O arquivo `Loja.sqlite` deve estar na mesma pasta do notebook.
+
+---
+
+## Estrutura do Notebook
+
+1. ## Setup  
+   - Importa as bibliotecas `sqlite3` e `pandas`.  
+   - Abre conexão com o banco `Loja.sqlite`.
+
+2. ## Consulta 1  
+   - **Objetivo:** Listar todos os clientes (mesmo aqueles sem pedidos) junto com seus pedidos.  
+   - **SQL:**  
+     ```sql
+     SELECT c.Nome, p.PedidoID, p.DataPedido, p.ValorTotal
+       FROM Clientes AS c
+  LEFT JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID;
+     ```
+   - O resultado é carregado em um DataFrame `df_consulta1` com colunas:
+     - `Nome Cliente`  
+     - `PedidoID`  
+     - `Data Pedido`  
+     - `Valor Total`
+
+3. ## Consulta 2  
+   - **Objetivo:** Para cada cliente que fez pedidos, contar quantos pedidos e somar o valor total.  
+   - **SQL:**  
+     ```sql
+     SELECT c.Nome,
+            COUNT(p.PedidoID)    AS QuantidadePedidos,
+            SUM(p.ValorTotal)    AS ValorTotal
+       FROM Clientes AS c
+  INNER JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID
+   GROUP BY c.ClienteID;
+     ```
+   - Carrega o resultado em `df_consulta2` com colunas:
+     - `Nome Cliente`  
+     - `QuantidadePedidos`  
+     - `Valor Total`
+
+4. ## Consulta 3  
+   - **Objetivo:** Listar todos os pedidos que **ainda não** têm registro de pagamento.  
+   - **SQL:**  
+     ```sql
+     SELECT p.PedidoID, p.DataPedido, p.ValorTotal
+       FROM Pedidos AS p
+      WHERE p.PedidoID NOT IN (
+          SELECT PedidoID FROM Pagamentos
+      );
+     ```
+   - Resultado em `df_consulta3` com colunas:
+     - `PedidoID`  
+     - `Data Pedido`  
+     - `Valor Total`
+
+---
