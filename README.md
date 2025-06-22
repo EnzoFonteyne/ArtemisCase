@@ -82,9 +82,9 @@ O notebook (`desafio3.ipynb`) contém a solução para o **Desafio 3** de SQL, a
    - **Objetivo:** Listar todos os clientes (mesmo aqueles sem pedidos) junto com seus pedidos.  
    - **SQL:**  
      ```sql
-     SELECT c.Nome, p.PedidoID, p.DataPedido, p.ValorTotal
-       FROM Clientes AS c
-      LEFT JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID;
+      SELECT c.Nome, p.PedidoID, p.DataPedido, p.ValorTotal
+      FROM Clientes AS c
+      LEFT JOIN Pedidos AS p ON c.ClienteID = p.ClienteID;
      ```
    - O resultado é carregado em um DataFrame `df_consulta1` com colunas:
      - `Nome Cliente`  
@@ -96,12 +96,13 @@ O notebook (`desafio3.ipynb`) contém a solução para o **Desafio 3** de SQL, a
    - **Objetivo:** Para cada cliente que fez pedidos, contar quantos pedidos e somar o valor total.  
    - **SQL:**  
      ```sql
-     SELECT c.Nome,
-            COUNT(p.PedidoID)    AS QuantidadePedidos,
-            SUM(p.ValorTotal)    AS ValorTotal
-       FROM Clientes AS c
-      INNER JOIN Pedidos   AS p ON c.ClienteID = p.ClienteID
-         GROUP BY c.ClienteID;
+      SELECT 
+         c.Nome,
+         COUNT(p.PedidoID) AS QuantidadePedidos,
+         SUM(p.ValorTotal) AS ValorTotal
+      FROM Clientes AS c
+      INNER JOIN Pedidos AS p ON c.ClienteID = p.ClienteID
+      GROUP BY c.ClienteID;
      ```
    - Carrega o resultado em `df_consulta2` com colunas:
      - `Nome Cliente`  
@@ -112,10 +113,10 @@ O notebook (`desafio3.ipynb`) contém a solução para o **Desafio 3** de SQL, a
    - **Objetivo:** Listar todos os pedidos que **ainda não** têm registro de pagamento.  
    - **SQL:**  
      ```sql
-     SELECT p.PedidoID, p.DataPedido, p.ValorTotal
-       FROM Pedidos AS p
+      SELECT p.PedidoID, p.DataPedido, p.ValorTotal
+      FROM Pedidos AS p
       WHERE p.PedidoID NOT IN (
-          SELECT PedidoID FROM Pagamentos
+         SELECT PedidoID FROM Pagamentos
       );
      ```
    - Resultado em `df_consulta3` com colunas:
